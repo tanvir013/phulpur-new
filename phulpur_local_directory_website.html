@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;600;700&display=swap');
+
+:root {
+  --green: #1a7a3e;
+  --green-light: #e8f5ed;
+  --green-mid: #2d9d56;
+  --green-dark: #145f30;
+  --accent: #f59e0b;
+  --white: #ffffff;
+  --gray1: #f9fafb;
+  --gray2: #f3f4f6;
+  --gray3: #e5e7eb;
+  --text1: #111827;
+  --text2: #374151;
+  --text3: #6b7280;
+  --red: #ef4444;
+  --blue: #3b82f6;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Hind Siliguri', sans-serif; color: var(--text1); background: var(--gray1); font-size:15px; }
+
+/* PAGES */
+.page { display:none; }
+.page.active { display:block; }
+
+/* HEADER */
+.header {
+  background: var(--green);
+  padding: 0 16px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo { color: #fff; font-weight:700; font-size:17px; display:flex; align-items:center; gap:6px; }
+.logo-icon { width:28px; height:28px; background:#fff; border-radius:6px; display:flex; align-items:center; justify-content:center; }
+.logo-icon span { font-size:14px; }
+.header-right { display:flex; align-items:center; gap:8px; }
+.search-bar {
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  padding: 6px 12px;
+  color: #fff;
+  font-size:13px;
+  width: 160px;
+  font-family: inherit;
+}
+.search-bar::placeholder { color: rgba(255,255,255,0.7); }
+.header-btn {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color:#fff;
+  border-radius:6px;
+  padding:6px 10px;
+  font-size:12px;
+  cursor:pointer;
+  font-family:inherit;
+}
+.header-btn:hover { background: rgba(255,255,255,0.3); }
+
+/* BOTTOM NAV */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0; right: 0;
+  background: #fff;
+  border-top: 1px solid var(--gray3);
+  display: flex;
+  z-index: 100;
+  height: 58px;
+}
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  color: var(--text3);
+  font-size: 10px;
+  font-weight: 500;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  transition: color 0.2s;
+}
+.nav-item.active { color: var(--green); }
+.nav-item svg { width:22px; height:22px; }
+.nav-dot {
+  position:absolute;
+  top:8px;
+  right:22%;
+  width:8px; height:8px;
+  background:var(--red);
+  border-radius:50%;
+}
+
+/* HOME PAGE */
+.hero {
+  background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%);
+  padding: 24px 16px 32px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content:'';
+  position:absolute;
+  right:-30px; top:-30px;
+  width:160px; height:160px;
+  background: rgba(255,255,255,0.06);
+  border-radius:50%;
+}
+.hero::before {
+  content:'';
+  position:absolute;
+  right:40px; bottom:-20px;
+  width:100px; height:100px;
+  background: rgba(255,255,255,0.05);
+  border-radius:50%;
+}
+.hero-badge {
+  display:inline-block;
+  background: rgba(255,255,255,0.2);
+  border-radius:20px;
+  padding:4px 12px;
+  font-size:11px;
+  margin-bottom:8px;
+}
+.hero h1 { font-size:22px; font-weight:700; line-height:1.3; margin-bottom:4px; }
+.hero p { font-size:13px; opacity:0.85; margin-bottom:16px; }
+.hero-btns { display:flex; gap:10px; }
+.hero-btn-primary {
+  background: #fff;
+  color: var(--green-dark);
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  flex:1;
+}
+.hero-btn-outline {
+  background: transparent;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 2px solid rgba(255,255,255,0.6);
+  cursor: pointer;
+  font-family: inherit;
+  flex:1;
+}
+.stats-row {
+  display:flex;
+  gap:8px;
+  padding: 12px 16px;
+  background: #fff;
+  border-bottom: 1px solid var(--gray3);
+}
+.stat-item {
+  flex:1;
+  text-align:center;
+  padding: 8px 4px;
+  background: var(--green-light);
+  border-radius:8px;
+}
+.stat-num { font-size:18px; font-weight:700; color:var(--green); display:block; }
+.stat-label { font-size:10px; color:var(--text3); }
+
+/* SECTION */
+.section { padding: 16px; }
+.section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.section-title { font-size:15px; font-weight:700; color:var(--text1); }
+.see-all { font-size:12px; color:var(--green); font-weight:600; cursor:pointer; border:none; background:transparent; font-family:inherit; }
+
+/* CATEGORIES */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.cat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 10px 4px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--gray3);
+  transition: all 0.2s;
+  border: none;
+  font-family: inherit;
+}
+.cat-item:hover { background: var(--green-light); transform: translateY(-1px); }
+.cat-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.cat-name { font-size: 11px; font-weight: 500; color: var(--text2); text-align:center; line-height:1.2; }
+
+/* LISTINGS */
+.listing-card {
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  border: 1px solid var(--gray3);
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+  display: flex;
+  text-align:left;
+}
+.listing-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.listing-img {
+  width: 80px;
+  min-height: 90px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  flex-shrink:0;
+}
+.listing-body { padding: 10px 12px 10px 8px; flex:1; }
+.listing-name { font-size:14px; font-weight:700; color:var(--text1); margin-bottom:2px; }
+.listing-cat { font-size:11px; color:var(--green); font-weight:600; margin-bottom:4px; }
+.listing-addr { font-size:12px; color:var(--text3); margin-bottom:6px; display:flex; align-items:center; gap:4px; }
+.listing-footer { display:flex; align-items:center; gap:8px; }
+.badge { font-size:10px; padding:3px 8px; border-radius:20px; font-weight:600; }
+.badge-premium { background:#fef3c7; color:#b45309; }
+.badge-open { background:#dcfce7; color:#166534; }
+.badge-cat { background: var(--green-light); color: var(--green); }
+.rating { font-size:12px; color:var(--accent); display:flex; align-items:center; gap:2px; }
+
+/* NEWS CARD */
+.news-scroll { display:flex; gap:10px; overflow-x:auto; padding-bottom:4px; }
+.news-scroll::-webkit-scrollbar { display:none; }
+.news-card {
+  min-width: 200px;
+  background:#fff;
+  border-radius:10px;
+  border:1px solid var(--gray3);
+  overflow:hidden;
+  cursor:pointer;
+  flex-shrink:0;
+}
+.news-img {
+  height:90px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+}
+.news-body { padding:8px 10px; }
+.news-title { font-size:12px; font-weight:700; line-height:1.4; color:var(--text1); margin-bottom:4px; }
+.news-date { font-size:10px; color:var(--text3); }
+
+/* NOTICE BOARD */
+.notice-item {
+  display:flex;
+  gap:10px;
+  padding: 10px;
+  background:#fff;
+  border-radius:8px;
+  margin-bottom:8px;
+  border-left: 3px solid var(--green);
+  border: 1px solid var(--gray3);
+  border-left: 3px solid var(--green);
+  cursor:pointer;
+  align-items:center;
+}
+.notice-icon { font-size:20px; flex-shrink:0; }
+.notice-text { font-size:12px; color:var(--text2); line-height:1.4; }
+.notice-text strong { color:var(--text1); display:block; font-size:13px; margin-bottom:2px; }
+
+/* MAP */
+.map-placeholder {
+  background: var(--green-light);
+  border-radius:12px;
+  height:160px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border: 2px dashed var(--green);
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+}
+.map-grid {
+  position:absolute;
+  top:0; left:0; right:0; bottom:0;
+  background-image: 
+    linear-gradient(rgba(26,122,62,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,122,62,0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+.map-pin { font-size:32px; position:relative; z-index:1; }
+.map-text { font-size:13px; font-weight:600; color:var(--green); position:relative; z-index:1; }
+
+/* SERVICES PAGE */
+.services-header {
+  background: var(--green);
+  padding: 16px;
+  color: #fff;
+}
+.services-header h2 { font-size:18px; font-weight:700; margin-bottom:12px; }
+.filter-pills { display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; }
+.filter-pills::-webkit-scrollbar { display:none; }
+.pill {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+  white-space:nowrap;
+  border: none;
+  font-family:inherit;
+  flex-shrink:0;
+}
+.pill.active { background:#fff; color:var(--green); }
+.pill:not(.active) { background:rgba(255,255,255,0.2); color:#fff; }
+
+/* DETAIL PAGE */
+.detail-hero {
+  background: var(--green);
+  height:160px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:60px;
+  position:relative;
+}
+.back-btn {
+  position:absolute;
+  top:12px; left:12px;
+  background:rgba(255,255,255,0.2);
+  border:none;
+  color:#fff;
+  width:36px; height:36px;
+  border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  font-size:18px;
+}
+.detail-body { padding:16px; }
+.detail-name { font-size:20px; font-weight:700; margin-bottom:4px; }
+.detail-cat { font-size:13px; color:var(--green); font-weight:600; margin-bottom:12px; }
+.detail-info-row {
+  display:flex;
+  gap:8px;
+  margin-bottom:8px;
+  align-items:flex-start;
+}
+.detail-info-icon { font-size:16px; flex-shrink:0; margin-top:1px; }
+.detail-info-text { font-size:13px; color:var(--text2); }
+.action-btns { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0; }
+.action-btn {
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  font-family:inherit;
+}
+.action-btn-primary { background:var(--green); color:#fff; }
+.action-btn-outline { background:#fff; color:var(--green); border:2px solid var(--green); }
+.divider { height:1px; background:var(--gray3); margin:16px 0; }
+.reviews { }
+.review-item { padding:10px 0; border-bottom:1px solid var(--gray2); }
+.review-user { font-size:13px; font-weight:600; margin-bottom:2px; }
+.review-text { font-size:12px; color:var(--text3); }
+.review-stars { color:var(--accent); font-size:12px; margin-bottom:2px; }
+
+/* ADD LISTING FORM */
+.add-form-header {
+  background: var(--green);
+  padding:20px 16px;
+  color:#fff;
+}
+.add-form-header h2 { font-size:18px; font-weight:700; }
+.add-form-header p { font-size:13px; opacity:0.85; margin-top:4px; }
+.form-body { padding:16px; }
+.form-group { margin-bottom:14px; }
+.form-label { font-size:13px; font-weight:600; color:var(--text2); margin-bottom:5px; display:block; }
+.form-input {
+  width:100%;
+  padding:10px 12px;
+  border:1.5px solid var(--gray3);
+  border-radius:8px;
+  font-size:14px;
+  font-family:inherit;
+  color:var(--text1);
+  background:#fff;
+  transition: border-color 0.2s;
+}
+.form-input:focus { outline:none; border-color:var(--green); }
+.form-select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 8l4 4 4-4' stroke='%236b7280' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; background-size:16px; }
+.plan-cards { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:16px; }
+.plan-card {
+  border:2px solid var(--gray3);
+  border-radius:10px;
+  padding:12px;
+  cursor:pointer;
+  transition:all 0.2s;
+  text-align:center;
+}
+.plan-card.selected { border-color:var(--green); background:var(--green-light); }
+.plan-name { font-size:13px; font-weight:700; color:var(--text1); margin-bottom:2px; }
+.plan-price { font-size:18px; font-weight:700; color:var(--green); }
+.plan-price span { font-size:11px; color:var(--text3); }
+.plan-feature { font-size:11px; color:var(--text3); margin-top:4px; }
+.submit-btn {
+  width:100%;
+  background:var(--green);
+  color:#fff;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  font-family:inherit;
+  transition:background 0.2s;
+}
+.submit-btn:hover { background:var(--green-dark); }
+
+/* JOBS PAGE */
+.jobs-list { padding:12px 16px; }
+.job-card {
+  background:#fff;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:10px;
+  border:1px solid var(--gray3);
+  cursor:pointer;
+  transition:box-shadow 0.2s;
+}
+.job-card:hover { box-shadow:0 4px 16px rgba(0,0,0,0.1); }
+.job-title { font-size:15px; font-weight:700; color:var(--text1); margin-bottom:2px; }
+.job-company { font-size:13px; color:var(--green); font-weight:600; margin-bottom:6px; }
+.job-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+.job-tag { font-size:11px; padding:3px 8px; border-radius:20px; background:var(--gray2); color:var(--text2); font-weight:600; }
+.job-footer { display:flex; justify-content:space-between; align-items:center; }
+.job-salary { font-size:13px; font-weight:700; color:var(--green); }
+.job-date { font-size:11px; color:var(--text3); }
+
+/* ADMIN PAGE */
+.admin-header { background:var(--green-dark); padding:20px 16px; color:#fff; }
+.admin-stats { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; padding:12px 16px; }
+.admin-stat {
+  background:#fff;
+  border-radius:10px;
+  padding:14px;
+  border:1px solid var(--gray3);
+}
+.admin-stat-num { font-size:22px; font-weight:700; color:var(--green); }
+.admin-stat-label { font-size:12px; color:var(--text3); margin-top:2px; }
+.admin-pending {
+  background:#fff3cd;
+  border-left:3px solid var(--accent);
+}
+.admin-section { padding:12px 16px; }
+.pending-item {
+  background:#fff;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:8px;
+  border:1px solid var(--gray3);
+}
+.pending-name { font-size:14px; font-weight:700; margin-bottom:2px; }
+.pending-meta { font-size:12px; color:var(--text3); margin-bottom:8px; }
+.pending-actions { display:flex; gap:8px; }
+.approve-btn { background:var(--green); color:#fff; border:none; padding:7px 14px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; }
+.reject-btn { background:#fee2e2; color:var(--red); border:none; padding:7px 14px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; }
+.edit-btn { background:var(--gray2); color:var(--text2); border:none; padding:7px 14px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; }
+
+.toast {
+  position:fixed;
+  bottom:70px;
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--green);
+  color:#fff;
+  padding:10px 20px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:600;
+  z-index:999;
+  display:none;
+  white-space:nowrap;
+}
+.toast.show { display:block; }
+
+.page-scroll { padding-bottom:70px; overflow-y:auto; max-height:calc(100vh - 56px - 58px); }
+
+.emergency-btn {
+  display:flex;
+  gap:10px;
+  background:#fff;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:8px;
+  border:2px solid var(--red);
+  cursor:pointer;
+  align-items:center;
+  border:none;
+  font-family:inherit;
+  width:100%;
+  text-align:left;
+  transition:background 0.2s;
+}
+.emergency-btn:hover { background:#fee2e2; }
+.emergency-icon { font-size:24px; }
+.emergency-name { font-size:14px; font-weight:700; color:var(--red); }
+.emergency-num { font-size:12px; color:var(--text3); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon"><span>🌿</span></div>
+    ফুলপুর সিটি
+  </div>
+  <div class="header-right">
+    <input class="search-bar" placeholder="🔍 সার্চ করুন..." />
+    <button class="header-btn" onclick="navTo('admin')">⚙️</button>
+  </div>
+</div>
+
+<!-- PAGES -->
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+<div class="page-scroll">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge">📍 ফুলপুর উপজেলা, ময়মনসিংহ</div>
+    <h1>আপনার এলাকার<br>সব সেবা এক জায়গায়</h1>
+    <p>ডাক্তার, দোকান, চাকরি, হোটেল — সব খুঁজুন সহজে</p>
+    <div class="hero-btns">
+      <button class="hero-btn-primary" onclick="navTo('services')">🔍 সেবা খুঁজুন</button>
+      <button class="hero-btn-outline" onclick="navTo('add')">➕ ব্যবসা যোগ করুন</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-item">
+      <span class="stat-num">৩৪৮</span>
+      <span class="stat-label">ব্যবসা</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">১২</span>
+      <span class="stat-label">ক্যাটাগরি</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">৫৬</span>
+      <span class="stat-label">চাকরি</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">১.২k</span>
+      <span class="stat-label">ব্যবহারকারী</span>
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">🗂️ ক্যাটাগরি</span>
+      <button class="see-all" onclick="navTo('services')">সব দেখুন →</button>
+    </div>
+    <div class="categories-grid">
+      <button class="cat-item" onclick="showCategory('ডাক্তার')">
+        <div class="cat-icon" style="background:#fee2e2">🩺</div>
+        <span class="cat-name">ডাক্তার</span>
+      </button>
+      <button class="cat-item" onclick="showCategory('হাসপাতাল')">
+        <div class="cat-icon" style="background:#dbeafe">🏥</div>
+        <span class="cat-name">হাসপাতাল</span>
+      </button>
+      <button class="cat-item" onclick="showCategory('পরিবহন')">
+        <div class="cat-icon" style="background:#fef3c7">🚌</div>
+        <span class="cat-name">পরিবহন</span>
+      </button>
+      <button class="cat-item" onclick="showCategory('হোটেল')">
+        <div class="cat-icon" style="background:#f3e8ff">🏨</div>
+        <span class="cat-name">হোটেল</span>
+      </button>
+      <button class="cat-item" onclick="showCategory('দোকান')">
+        <div class="cat-icon" style="background:#dcfce7">🛒</div>
+        <span class="cat-name">দোকান</span>
+      </button>
+      <button class="cat-item" onclick="showCategory('টেকনিশিয়ান')">
+        <div class="cat-icon" style="background:#ffedd5">🔧</div>
+        <span class="cat-name">টেকনিশিয়ান</span>
+      </button>
+      <button class="cat-item" onclick="showCategory('জরুরি')">
+        <div class="cat-icon" style="background:#fee2e2">🚨</div>
+        <span class="cat-name">জরুরি সেবা</span>
+      </button>
+      <button class="cat-item" onclick="navTo('jobs')">
+        <div class="cat-icon" style="background:#e0f2fe">💼</div>
+        <span class="cat-name">চাকরি</span>
+      </button>
+      <button class="cat-item" onclick="showCategory('ভাড়া')">
+        <div class="cat-icon" style="background:#f0fdf4">🏠</div>
+        <span class="cat-name">বাড়ি ভাড়া</span>
+      </button>
+      <button class="cat-item" onclick="showCategory('পর্যটন')">
+        <div class="cat-icon" style="background:#ecfdf5">🌿</div>
+        <span class="cat-name">পর্যটন</span>
+      </button>
+      <button class="cat-item" onclick="showCategory('শিক্ষা')">
+        <div class="cat-icon" style="background:#fef9c3">📚</div>
+        <span class="cat-name">শিক্ষা</span>
+      </button>
+      <button class="cat-item" onclick="showCategory('ব্যাংক')">
+        <div class="cat-icon" style="background:#e0e7ff">🏦</div>
+        <span class="cat-name">ব্যাংক</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Featured Listings -->
+  <div class="section" style="padding-top:0">
+    <div class="section-header">
+      <span class="section-title">⭐ ফিচার্ড ব্যবসা</span>
+      <button class="see-all" onclick="navTo('services')">সব দেখুন →</button>
+    </div>
+    <div onclick="showDetail('ডা. রফিকুল ইসলাম')">
+    <div class="listing-card">
+      <div class="listing-img" style="background:#fee2e2">🩺</div>
+      <div class="listing-body">
+        <div class="listing-name">ডা. রফিকুল ইসলাম</div>
+        <div class="listing-cat">মেডিসিন বিশেষজ্ঞ</div>
+        <div class="listing-addr">📍 ফুলপুর বাজার, ময়মনসিংহ</div>
+        <div class="listing-footer">
+          <span class="badge badge-premium">⭐ প্রিমিয়াম</span>
+          <span class="badge badge-open">খোলা</span>
+          <span class="rating">★★★★★ 4.9</span>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div onclick="showDetail('হাসান ট্রান্সপোর্ট')">
+    <div class="listing-card">
+      <div class="listing-img" style="background:#fef3c7">🚌</div>
+      <div class="listing-body">
+        <div class="listing-name">হাসান ট্রান্সপোর্ট</div>
+        <div class="listing-cat">বাস ও মিনিবাস সার্ভিস</div>
+        <div class="listing-addr">📍 ফুলপুর বাস স্ট্যান্ড</div>
+        <div class="listing-footer">
+          <span class="badge badge-premium">⭐ প্রিমিয়াম</span>
+          <span class="badge badge-open">সক্রিয়</span>
+          <span class="rating">★★★★☆ 4.2</span>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div onclick="showDetail('গ্রিন ফার্মেসি')">
+    <div class="listing-card">
+      <div class="listing-img" style="background:#dcfce7">💊</div>
+      <div class="listing-body">
+        <div class="listing-name">গ্রিন ফার্মেসি</div>
+        <div class="listing-cat">ওষুধের দোকান</div>
+        <div class="listing-addr">📍 কলেজ রোড, ফুলপুর</div>
+        <div class="listing-footer">
+          <span class="badge badge-open">২৪/৭ খোলা</span>
+          <span class="rating">★★★★☆ 4.5</span>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <!-- News -->
+  <div class="section" style="padding-top:0">
+    <div class="section-header">
+      <span class="section-title">📰 সর্বশেষ খবর</span>
+      <button class="see-all">সব দেখুন →</button>
+    </div>
+    <div class="news-scroll">
+      <div class="news-card">
+        <div class="news-img" style="background:#dbeafe">🏗️</div>
+        <div class="news-body">
+          <div class="news-title">ফুলপুরে নতুন ডিজিটাল সেন্টার উদ্বোধন</div>
+          <div class="news-date">আজকের তারিখ</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img" style="background:#dcfce7">🌾</div>
+        <div class="news-body">
+          <div class="news-title">কৃষকদের জন্য বিশেষ ঋণ সুবিধা</div>
+          <div class="news-date">গতকাল</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img" style="background:#fef3c7">🎓</div>
+        <div class="news-body">
+          <div class="news-title">ফুলপুর কলেজে ভর্তি শুরু</div>
+          <div class="news-date">২ দিন আগে</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notice Board -->
+  <div class="section" style="padding-top:0">
+    <div class="section-header">
+      <span class="section-title">📋 নোটিশ বোর্ড</span>
+    </div>
+    <div class="notice-item">
+      <div class="notice-icon">📢</div>
+      <div class="notice-text">
+        <strong>বিদ্যুৎ বিভ্রাট সতর্কতা</strong>
+        আগামীকাল সকাল ৯টা-১টা পর্যন্ত বিদ্যুৎ থাকবে না
+      </div>
+    </div>
+    <div class="notice-item">
+      <div class="notice-icon">🏥</div>
+      <div class="notice-text">
+        <strong>বিনামূল্যে স্বাস্থ্য ক্যাম্প</strong>
+        শনিবার, উপজেলা স্বাস্থ্য কেন্দ্র প্রাঙ্গণ
+      </div>
+    </div>
+    <div class="notice-item">
+      <div class="notice-icon">🌊</div>
+      <div class="notice-text">
+        <strong>বন্যা সতর্কতা</strong>
+        নদীর পানি বিপৎসীমার কাছে — সতর্ক থাকুন
+      </div>
+    </div>
+  </div>
+
+  <!-- Map -->
+  <div class="section" style="padding-top:0">
+    <div class="section-header">
+      <span class="section-title">🗺️ মানচিত্র</span>
+    </div>
+    <div class="map-placeholder" onclick="showToast('গুগল ম্যাপ লোড হচ্ছে...')">
+      <div class="map-grid"></div>
+      <div class="map-pin">📍</div>
+      <div class="map-text">ফুলপুর উপজেলা, ময়মনসিংহ</div>
+      <div style="font-size:12px; color:var(--green); position:relative; z-index:1; opacity:0.7">ট্যাপ করুন Google Maps খুলতে</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SERVICES PAGE -->
+<div id="page-services" class="page">
+<div class="services-header">
+  <h2>🏪 সব সেবা ও ব্যবসা</h2>
+  <div class="filter-pills">
+    <button class="pill active" onclick="filterServices(this,'সব')">সব</button>
+    <button class="pill" onclick="filterServices(this,'ডাক্তার')">🩺 ডাক্তার</button>
+    <button class="pill" onclick="filterServices(this,'হাসপাতাল')">🏥 হাসপাতাল</button>
+    <button class="pill" onclick="filterServices(this,'পরিবহন')">🚌 পরিবহন</button>
+    <button class="pill" onclick="filterServices(this,'দোকান')">🛒 দোকান</button>
+    <button class="pill" onclick="filterServices(this,'জরুরি')">🚨 জরুরি</button>
+  </div>
+</div>
+<div class="page-scroll" style="max-height:calc(100vh - 56px - 58px - 108px)">
+<div class="section" style="padding-top:12px">
+  <div id="services-list">
+    <div onclick="showDetail('ডা. রফিকুল ইসলাম')"><div class="listing-card" data-cat="ডাক্তার">
+      <div class="listing-img" style="background:#fee2e2">🩺</div>
+      <div class="listing-body">
+        <div class="listing-name">ডা. রফিকুল ইসলাম</div>
+        <div class="listing-cat">ডাক্তার</div>
+        <div class="listing-addr">📍 ফুলপুর বাজার</div>
+        <div class="listing-footer"><span class="badge badge-premium">⭐ প্রিমিয়াম</span><span class="rating">★★★★★ 4.9</span></div>
+      </div>
+    </div></div>
+    <div onclick="showDetail('উপজেলা স্বাস্থ্য কমপ্লেক্স')"><div class="listing-card" data-cat="হাসপাতাল">
+      <div class="listing-img" style="background:#dbeafe">🏥</div>
+      <div class="listing-body">
+        <div class="listing-name">উপজেলা স্বাস্থ্য কমপ্লেক্স</div>
+        <div class="listing-cat">হাসপাতাল</div>
+        <div class="listing-addr">📍 ফুলপুর সদর</div>
+        <div class="listing-footer"><span class="badge badge-open">২৪/৭</span><span class="rating">★★★★☆ 4.1</span></div>
+      </div>
+    </div></div>
+    <div onclick="showDetail('হাসান ট্রান্সপোর্ট')"><div class="listing-card" data-cat="পরিবহন">
+      <div class="listing-img" style="background:#fef3c7">🚌</div>
+      <div class="listing-body">
+        <div class="listing-name">হাসান ট্রান্সপোর্ট</div>
+        <div class="listing-cat">পরিবহন</div>
+        <div class="listing-addr">📍 বাস স্ট্যান্ড</div>
+        <div class="listing-footer"><span class="badge badge-open">সক্রিয়</span><span class="rating">★★★★☆ 4.2</span></div>
+      </div>
+    </div></div>
+    <div onclick="showDetail('আল-আমিন সুপারশপ')"><div class="listing-card" data-cat="দোকান">
+      <div class="listing-img" style="background:#dcfce7">🛒</div>
+      <div class="listing-body">
+        <div class="listing-name">আল-আমিন সুপারশপ</div>
+        <div class="listing-cat">দোকান</div>
+        <div class="listing-addr">📍 ফুলপুর বাজার রোড</div>
+        <div class="listing-footer"><span class="badge badge-open">খোলা</span><span class="rating">★★★★☆ 4.3</span></div>
+      </div>
+    </div></div>
+    <div onclick="showDetail('ফায়ার সার্ভিস')"><div class="listing-card" data-cat="জরুরি">
+      <div class="listing-img" style="background:#fee2e2">🚒</div>
+      <div class="listing-body">
+        <div class="listing-name">ফায়ার সার্ভিস ফুলপুর</div>
+        <div class="listing-cat">জরুরি সেবা</div>
+        <div class="listing-addr">📍 ফুলপুর সদর</div>
+        <div class="listing-footer"><span class="badge badge-open">২৪/৭</span><span class="rating">★★★★★ 5.0</span></div>
+      </div>
+    </div></div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- DETAIL PAGE -->
+<div id="page-detail" class="page">
+<div class="page-scroll">
+  <div class="detail-hero" id="detail-hero">
+    <button class="back-btn" onclick="navTo('services')">←</button>
+    <span id="detail-emoji">🩺</span>
+  </div>
+  <div class="detail-body">
+    <div class="listing-footer" style="margin-bottom:8px">
+      <span class="badge badge-premium">⭐ প্রিমিয়াম</span>
+      <span class="badge badge-open">খোলা</span>
+    </div>
+    <div class="detail-name" id="detail-name">ডা. রফিকুল ইসলাম</div>
+    <div class="detail-cat">মেডিসিন বিশেষজ্ঞ · ডাক্তার</div>
+    <div class="rating" style="font-size:14px;margin-bottom:12px">★★★★★ <span style="color:var(--text2)">4.9 (৪৭ রিভিউ)</span></div>
+
+    <div class="action-btns">
+      <button class="action-btn action-btn-primary" onclick="showToast('কল করা হচ্ছে... 📞')">📞 কল করুন</button>
+      <button class="action-btn action-btn-outline" onclick="showToast('WhatsApp খুলছে...')">💬 WhatsApp</button>
+    </div>
+
+    <div class="detail-info-row">
+      <div class="detail-info-icon">📍</div>
+      <div class="detail-info-text">ফুলপুর বাজার, ময়মনসিংহ সদর রোড, ফুলপুর উপজেলা</div>
+    </div>
+    <div class="detail-info-row">
+      <div class="detail-info-icon">🕐</div>
+      <div class="detail-info-text">সকাল ৯টা – বিকাল ৫টা (রবি–বৃহস্পতি)</div>
+    </div>
+    <div class="detail-info-row">
+      <div class="detail-info-icon">📞</div>
+      <div class="detail-info-text">01700-000000</div>
+    </div>
+    <div class="detail-info-row">
+      <div class="detail-info-icon">💰</div>
+      <div class="detail-info-text">ভিজিট: ৩০০ টাকা</div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-title" style="margin-bottom:10px">📋 রিভিউ</div>
+    <div class="reviews">
+      <div class="review-item">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-user">কামাল হোসেন</div>
+        <div class="review-text">খুবই ভালো ডাক্তার, অনেক সাহায্য করেছেন।</div>
+      </div>
+      <div class="review-item">
+        <div class="review-stars">★★★★☆</div>
+        <div class="review-user">নাসরিন বেগম</div>
+        <div class="review-text">ভালো সেবা, তবে অপেক্ষা করতে হয়।</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <button class="submit-btn" onclick="showToast('শেয়ার লিংক কপি হয়েছে! ✅')">🔗 শেয়ার করুন</button>
+  </div>
+</div>
+</div>
+
+<!-- ADD LISTING PAGE -->
+<div id="page-add" class="page">
+<div class="page-scroll">
+<div class="add-form-header">
+  <h2>➕ ব্যবসা যোগ করুন</h2>
+  <p>আপনার ব্যবসা লিস্ট করুন — হাজার মানুষ খুঁজে পাবে</p>
+</div>
+<div class="form-body">
+  <div class="form-group">
+    <label class="form-label">ব্যবসার নাম *</label>
+    <input class="form-input" placeholder="যেমন: হাসান মেডিকেল হল" />
+  </div>
+  <div class="form-group">
+    <label class="form-label">ক্যাটাগরি *</label>
+    <select class="form-input form-select">
+      <option>ক্যাটাগরি বেছে নিন</option>
+      <option>ডাক্তার</option>
+      <option>হাসপাতাল</option>
+      <option>পরিবহন</option>
+      <option>হোটেল</option>
+      <option>দোকান</option>
+      <option>টেকনিশিয়ান</option>
+      <option>শিক্ষা</option>
+      <option>ব্যাংক / আর্থিক সেবা</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label class="form-label">ফোন নম্বর *</label>
+    <input class="form-input" placeholder="01XXXXXXXXX" type="tel" />
+  </div>
+  <div class="form-group">
+    <label class="form-label">ঠিকানা *</label>
+    <input class="form-input" placeholder="গ্রাম/এলাকা, ফুলপুর উপজেলা" />
+  </div>
+  <div class="form-group">
+    <label class="form-label">বিস্তারিত বিবরণ</label>
+    <textarea class="form-input" rows="3" placeholder="আপনার সেবা সম্পর্কে লিখুন..."></textarea>
+  </div>
+
+  <div class="section-title" style="margin-bottom:10px">💎 লিস্টিং প্ল্যান বেছে নিন</div>
+  <div class="plan-cards">
+    <div class="plan-card" onclick="selectPlan(this)">
+      <div class="plan-name">বেসিক</div>
+      <div class="plan-price">ফ্রি</div>
+      <div class="plan-feature">অ্যাডমিন অনুমোদনের পর লাইভ</div>
+    </div>
+    <div class="plan-card selected" onclick="selectPlan(this)">
+      <div class="plan-name">প্রিমিয়াম</div>
+      <div class="plan-price">৳৩৯৯<span>/মাস</span></div>
+      <div class="plan-feature">টপ লিস্টে দেখাবে + ব্যাজ</div>
+    </div>
+  </div>
+
+  <div style="background:#e8f5ed;border-radius:10px;padding:12px;margin-bottom:16px;font-size:12px;color:var(--green-dark)">
+    <strong>💳 পেমেন্ট পদ্ধতি:</strong><br>
+    bKash: 01XXXXXXXXX (পার্সোনাল)<br>
+    Nagad: 01XXXXXXXXX<br>
+    ট্রান্সেকশন নম্বর ফর্মে লিখুন
+  </div>
+  <div class="form-group">
+    <label class="form-label">bKash/Nagad ট্রান্সেকশন নম্বর</label>
+    <input class="form-input" placeholder="যেমন: TXN123456789" />
+  </div>
+  <button class="submit-btn" onclick="submitForm()">📤 জমা দিন — অনুমোদনের জন্য</button>
+</div>
+</div>
+</div>
+
+<!-- JOBS PAGE -->
+<div id="page-jobs" class="page">
+<div class="services-header">
+  <h2>💼 চাকরির বিজ্ঞাপন</h2>
+  <div class="filter-pills">
+    <button class="pill active">সব</button>
+    <button class="pill">ফুল-টাইম</button>
+    <button class="pill">পার্ট-টাইম</button>
+    <button class="pill">সরকারি</button>
+  </div>
+</div>
+<div class="page-scroll" style="max-height:calc(100vh - 56px - 58px - 100px)">
+<div class="jobs-list">
+  <div class="job-card" onclick="showToast('চাকরির বিস্তারিত দেখানো হচ্ছে...')">
+    <div class="job-title">সেলস রিপ্রেজেন্টেটিভ</div>
+    <div class="job-company">আল-আমিন ট্রেডার্স</div>
+    <div class="job-tags">
+      <span class="job-tag">ফুল-টাইম</span>
+      <span class="job-tag">ফুলপুর</span>
+      <span class="job-tag">HSC পাস</span>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">৳১২,০০০–১৮,০০০/মাস</span>
+      <span class="job-date">২ দিন আগে</span>
+    </div>
+  </div>
+  <div class="job-card" onclick="showToast('চাকরির বিস্তারিত দেখানো হচ্ছে...')">
+    <div class="job-title">কম্পিউটার অপারেটর</div>
+    <div class="job-company">ফুলপুর ডিজিটাল সেন্টার</div>
+    <div class="job-tags">
+      <span class="job-tag">পার্ট-টাইম</span>
+      <span class="job-tag">ফুলপুর</span>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">৳৮,০০০/মাস</span>
+      <span class="job-date">৩ দিন আগে</span>
+    </div>
+  </div>
+  <div class="job-card" onclick="showToast('চাকরির বিস্তারিত দেখানো হচ্ছে...')">
+    <div class="job-title">স্বাস্থ্যকর্মী (FWA)</div>
+    <div class="job-company">উপজেলা স্বাস্থ্য বিভাগ</div>
+    <div class="job-tags">
+      <span class="job-tag">সরকারি</span>
+      <span class="job-tag">ফুলপুর উপজেলা</span>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">৳১৬,০০০/মাস</span>
+      <span class="job-date">১ সপ্তাহ আগে</span>
+    </div>
+  </div>
+  <div class="job-card" onclick="showToast('চাকরির বিস্তারিত দেখানো হচ্ছে...')">
+    <div class="job-title">ইলেকট্রিশিয়ান / টেকনিশিয়ান</div>
+    <div class="job-company">মডার্ন ইলেকট্রনিক্স</div>
+    <div class="job-tags">
+      <span class="job-tag">ফুল-টাইম</span>
+      <span class="job-tag">অভিজ্ঞতা প্রয়োজন</span>
+    </div>
+    <div class="job-footer">
+      <span class="job-salary">৳১৫,০০০+</span>
+      <span class="job-date">আজ</span>
+    </div>
+  </div>
+  <button class="submit-btn" style="margin-top:12px" onclick="navTo('add')">+ চাকরি পোস্ট করুন</button>
+</div>
+</div>
+</div>
+
+<!-- ADMIN PAGE -->
+<div id="page-admin" class="page">
+<div class="page-scroll">
+<div class="admin-header">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+    <h2 style="font-size:18px;font-weight:700">⚙️ অ্যাডমিন প্যানেল</h2>
+    <button onclick="navTo('home')" style="background:rgba(255,255,255,0.2);border:none;color:#fff;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit">← সাইটে যান</button>
+  </div>
+  <p style="font-size:13px;opacity:0.8">ফুলপুর সিটি — কন্ট্রোল প্যানেল</p>
+</div>
+
+<div class="admin-stats">
+  <div class="admin-stat">
+    <div class="admin-stat-num">৩৪৮</div>
+    <div class="admin-stat-label">মোট লিস্টিং</div>
+  </div>
+  <div class="admin-stat admin-pending">
+    <div class="admin-stat-num" style="color:#d97706">১২</div>
+    <div class="admin-stat-label">অনুমোদন বাকি</div>
+  </div>
+  <div class="admin-stat">
+    <div class="admin-stat-num">৫৬</div>
+    <div class="admin-stat-label">চাকরি পোস্ট</div>
+  </div>
+  <div class="admin-stat">
+    <div class="admin-stat-num">৳৪,৮০০</div>
+    <div class="admin-stat-label">এই মাসে আয়</div>
+  </div>
+</div>
+
+<div class="admin-section">
+  <div class="section-title" style="margin-bottom:10px;color:#d97706">⏳ অনুমোদনের অপেক্ষায় (১২টি)</div>
+  
+  <div class="pending-item">
+    <div class="pending-name">রহিম মোবাইল সার্ভিসিং</div>
+    <div class="pending-meta">📂 টেকনিশিয়ান · 📍 ফুলপুর বাজার · 💰 বেসিক প্ল্যান</div>
+    <div class="pending-actions">
+      <button class="approve-btn" onclick="approveListing(this)">✅ অনুমোদন</button>
+      <button class="reject-btn" onclick="rejectListing(this)">❌ বাতিল</button>
+      <button class="edit-btn">✏️ সম্পাদনা</button>
+    </div>
+  </div>
+
+  <div class="pending-item">
+    <div class="pending-name">স্বপ্ন রেস্তোরাঁ</div>
+    <div class="pending-meta">📂 হোটেল/রেস্তোরাঁ · 📍 কলেজ গেট · 💰 প্রিমিয়াম প্ল্যান · TXN: 9823764</div>
+    <div class="pending-actions">
+      <button class="approve-btn" onclick="approveListing(this)">✅ অনুমোদন</button>
+      <button class="reject-btn" onclick="rejectListing(this)">❌ বাতিল</button>
+      <button class="edit-btn">✏️ সম্পাদনা</button>
+    </div>
+  </div>
+
+  <div class="pending-item">
+    <div class="pending-name">ডা. আনিসুর রহমান</div>
+    <div class="pending-meta">📂 ডাক্তার · 📍 উপজেলা হাসপাতাল রোড · 💰 প্রিমিয়াম</div>
+    <div class="pending-actions">
+      <button class="approve-btn" onclick="approveListing(this)">✅ অনুমোদন</button>
+      <button class="reject-btn" onclick="rejectListing(this)">❌ বাতিল</button>
+      <button class="edit-btn">✏️ সম্পাদনা</button>
+    </div>
+  </div>
+</div>
+
+<div class="admin-section" style="padding-top:0">
+  <div class="section-title" style="margin-bottom:10px">🚨 জরুরি নম্বর পরিচালনা</div>
+  <button class="emergency-btn">
+    <span class="emergency-icon">🚒</span>
+    <div><div class="emergency-name">ফায়ার সার্ভিস</div><div class="emergency-num">199 · ফুলপুর</div></div>
+  </button>
+  <button class="emergency-btn">
+    <span class="emergency-icon">🚑</span>
+    <div><div class="emergency-name">অ্যাম্বুলেন্স</div><div class="emergency-num">01XXX-XXXXXX</div></div>
+  </button>
+  <button class="emergency-btn">
+    <span class="emergency-icon">👮</span>
+    <div><div class="emergency-name">ফুলপুর থানা</div><div class="emergency-num">999</div></div>
+  </button>
+  <button class="submit-btn" style="margin-top:12px" onclick="showToast('নতুন জরুরি নম্বর যোগ হয়েছে ✅')">+ নতুন জরুরি নম্বর যোগ করুন</button>
+</div>
+</div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-item active" id="nav-home" onclick="navTo('home')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    হোম
+  </button>
+  <button class="nav-item" id="nav-services" onclick="navTo('services')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    সেবা
+  </button>
+  <button class="nav-item" id="nav-add" onclick="navTo('add')" style="position:relative">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+    যোগ করুন
+  </button>
+  <button class="nav-item" id="nav-jobs" onclick="navTo('jobs')" style="position:relative">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+    <div class="nav-dot"></div>
+    চাকরি
+  </button>
+  <button class="nav-item" id="nav-admin" onclick="navTo('admin')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    অ্যাডমিন
+  </button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+function navTo(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function showDetail(name) {
+  const map = {
+    'ডা. রফিকুল ইসলাম': { emoji: '🩺', bg: '#fee2e2' },
+    'হাসান ট্রান্সপোর্ট': { emoji: '🚌', bg: '#fef3c7' },
+    'গ্রিন ফার্মেসি': { emoji: '💊', bg: '#dcfce7' },
+    'উপজেলা স্বাস্থ্য কমপ্লেক্স': { emoji: '🏥', bg: '#dbeafe' },
+    'আল-আমিন সুপারশপ': { emoji: '🛒', bg: '#dcfce7' },
+    'ফায়ার সার্ভিস': { emoji: '🚒', bg: '#fee2e2' },
+  };
+  const info = map[name] || { emoji: '🏪', bg: '#e5e7eb' };
+  document.getElementById('detail-name').textContent = name;
+  document.getElementById('detail-emoji').textContent = info.emoji;
+  document.getElementById('detail-hero').style.background = info.bg;
+  navTo('detail');
+}
+
+function showCategory(cat) {
+  navTo('services');
+  document.querySelectorAll('#services-list .listing-card').forEach(card => {
+    const c = card.getAttribute('data-cat');
+    card.parentElement.style.display = (c === cat) ? 'block' : 'none';
+  });
+}
+
+function filterServices(btn, cat) {
+  document.querySelectorAll('.filter-pills .pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#services-list .listing-card').forEach(card => {
+    if (cat === 'সব') {
+      card.parentElement.style.display = 'block';
+    } else {
+      const c = card.getAttribute('data-cat');
+      card.parentElement.style.display = (c === cat) ? 'block' : 'none';
+    }
+  });
+}
+
+function selectPlan(el) {
+  document.querySelectorAll('.plan-card').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function submitForm() {
+  showToast('✅ আপনার ব্যবসা জমা হয়েছে! অনুমোদনের জন্য অপেক্ষা করুন।');
+}
+
+function approveListing(btn) {
+  const item = btn.closest('.pending-item');
+  const name = item.querySelector('.pending-name').textContent;
+  item.style.opacity = '0.4';
+  item.style.pointerEvents = 'none';
+  showToast('✅ ' + name + ' অনুমোদিত হয়েছে!');
+}
+
+function rejectListing(btn) {
+  const item = btn.closest('.pending-item');
+  item.remove();
+  showToast('❌ লিস্টিং বাতিল করা হয়েছে।');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>
